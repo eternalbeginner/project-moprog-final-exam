@@ -5,6 +5,15 @@
     "name": "Wipa",
     "url": "https://github.com/eternalbeginner"
   },
+  "dependencies": {
+    "@prisma/client": "4.16.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "prisma": "^4.16.2"
+  },
   "devDependencies": {
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",
@@ -12,7 +21,9 @@
     "@babel/preset-env": "^7.22.5",
     "babel-plugin-module-resolver": "^5.0.0",
     "commitizen": "^4.3.0",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.44.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8"
@@ -21,7 +32,7 @@
     "node": ">=18.0.0"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "npx babel-node prisma/seed.js"
   },
   "repository": {
     "type": "git",
@@ -30,10 +41,16 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "commit": "cz",
-    "dev": "nodemon --exec babel-node src/index.js",
-    "lint": "npx eslint src/ index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "lint": "npx eslint src/index.js",
+    "migrate:dev": "dotenv -e .env.development.local -- npx prisma migrate dev",
+    "migrate:prod": "dotenv -e .env.production.local -- npx prisma migrate dev",
+    "migrate-reset:dev": "dotenv -e .env.development.local -- npx prisma migrate reset",
+    "migrate-reset:prod": "dotenv -e .env.production.local -- npx prisma migrate reset",
     "pretty": "npx prettier --write \"src/**/*.js\"",
-    "start": "npm run build && node dist/index.js"
+    "seed:dev": "dotenv -e .env.development.local -- npx prisma db seed",
+    "seed:prod": "dotenv -e .env.production.local -- npx prisma db seed",
+    "start": "npm run build && cross-env NODE_ENV=production node dist/index.js"
   }
 }
 

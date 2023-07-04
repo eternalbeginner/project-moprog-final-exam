@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("APP_DB_URL")
+  directUrl         = env("APP_DIRECT_DB_URL")
+  shadowDatabaseUrl = env("APP_SHADOW_DB_URL")
+}
+
+model Student {
+  id        String @id @default(cuid())
+  nim       String
+  name      String
+  major     String
+  avatarUrl String
+
+  createdAt DateTime  @default(now())
+  updatadAt DateTime?
+  deletedAt DateTime?
+
+  payments Payment[] @relation("PaymentOfStudent")
+}
+
+model Payment {
+  id        String        @id @default(cuid())
+  studentId String
+  nominal   Int
+  semester  String
+  status    PaymentStatus
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+
+  student Student @relation("PaymentOfStudent", fields: [studentId], references: [id])
+}
+
+enum PaymentStatus {
+  PAID
+  HALF_PAID
+}

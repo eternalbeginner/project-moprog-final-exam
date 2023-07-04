@@ -14,6 +14,11 @@ node_modules/
 dist/
 build/
 
+# Prisma
+prisma/migrations
+prisma/*.db
+prisma/*.db-journal
+
 # Dotenv environment variable files
 .env
 .env.development.local
