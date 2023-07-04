@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "configs": "./src/configs",
+          "controllers": "./src/controllers",
+          "libs": "./src/libs",
+          "models": "./src/models",
+          "routes": "./src/routes"
+        }
+      }
+    ]
+  ],
+  "presets": ["@babel/preset-env"]
+}
