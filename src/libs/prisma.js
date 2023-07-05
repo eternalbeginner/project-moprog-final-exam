@@ -15,6 +15,7 @@ let prisma =
 prisma.$use(async (params, next) => {
   switch (params.action) {
     case "findFirst":
+    case "findFirstOrThrow":
     case "findUnique":
       params.action = "findFirst";
       params.args.where["deletedAt"] = null;
@@ -35,7 +36,7 @@ prisma.$use(async (params, next) => {
       break;
     case "delete":
       params.action = "update";
-      params.args.data["deletedAt"] = new Date();
+      params.args["data"] = { deletedAt: new Date() };
       break;
     case "deleteMany":
       params.action = "updateMany";
