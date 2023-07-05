@@ -17,7 +17,7 @@ prisma.$use(async (params, next) => {
     case "findFirst":
     case "findFirstOrThrow":
     case "findUnique":
-      params.action = "findFirst";
+      params.action = "findFirstOrThrow";
       params.args.where["deletedAt"] = null;
       break;
     case "findMany":
