@@ -20,6 +20,7 @@
     "@babel/core": "^7.22.5",
     "@babel/node": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
+    "@flydotio/dockerfile": "^0.2.16",
     "@vercel/node": "^2.15.3",
     "babel-plugin-module-resolver": "^5.0.0",
     "commitizen": "^4.3.0",
