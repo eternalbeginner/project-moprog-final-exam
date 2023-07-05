@@ -20,7 +20,11 @@ export async function findById(studentId, errorOptions = {}) {
     return await prisma.student.findFirstOrThrow({
       where: { id: studentId },
       include: {
-        payments: true,
+        payments: {
+          where: {
+            deletedAt: null,
+          },
+        },
         _count: { select: { payments: true } },
       },
     });
@@ -39,10 +43,7 @@ export async function findById(studentId, errorOptions = {}) {
 export async function create(newStudent, errorOptions = {}) {
   try {
     const student = await prisma.student.create({
-      data: {
-        ...newStudent,
-        updatedAt: new Date(),
-      },
+      data: { ...newStudent },
     });
 
     return student;
@@ -61,7 +62,7 @@ export async function create(newStudent, errorOptions = {}) {
 export async function updateById(studentId, updatedStudent, errorOptions = {}) {
   try {
     const student = await prisma.student.update({
-      data: { ...updatedStudent },
+      data: { ...updatedStudent, updatedAt: new Date() },
       where: { id: studentId },
     });
 
