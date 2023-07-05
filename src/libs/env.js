@@ -1,12 +1,6 @@
 import dotenv from "dotenv";
-import path from "path";
 
-const result = dotenv.config({
-  path: path.resolve(
-    process.cwd(),
-    process.env.NODE_ENV === "production" ? ".env" : ".env.local",
-  ),
-});
+const result = dotenv.config();
 
 if (result.error) {
   console.error(result.error.message);
