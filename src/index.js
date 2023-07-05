@@ -16,7 +16,7 @@ app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
 app.use("/api", routes);
 
-app.listen(env.APP_PORT, () => {
-  console.log(`App listening at port ${env.APP_PORT}`);
+app.listen(env.PORT, () => {
+  console.log(`App listening at port ${env.PORT}`);
 });
 

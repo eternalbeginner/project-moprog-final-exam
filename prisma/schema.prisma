@@ -4,9 +4,9 @@ generator client {
 
 datasource db {
   provider          = "postgresql"
-  url               = env("APP_DB_URL")
-  directUrl         = env("APP_DIRECT_DB_URL")
-  shadowDatabaseUrl = env("APP_SHADOW_DB_URL")
+  url               = env("DB_URL")
+  directUrl         = env("DB_DIRECT_URL")
+  shadowDatabaseUrl = env("DB_SHADOW_URL")
 }
 
 model Student {
