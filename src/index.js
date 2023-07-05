@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import serverless from "serverless-http";
 
 import env from "libs/env";
 import routes from "routes";
@@ -14,9 +15,11 @@ app.use(cors({ origin: ["*"] }));
 app.use(helmet());
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
-app.use("/api", routes);
+app.use("/.netlify/functions/api", routes);
 
 app.listen(env.PORT, () => {
   console.log(`App listening at port ${env.PORT}`);
 });
+
+export const handler = serverless(app);
 
